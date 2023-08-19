@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- PHPUnit configuration file with new format for PHPUnit 9.3+ -->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.2/phpunit.xsd" bootstrap="../vendor/autoload.php" colors="true" cacheResult="false">
+    <testsuites>
+        <testsuite name="ardillo-loop test suite">
+            <directory>../tests/</directory>
+        </testsuite>
+    </testsuites>
+    <coverage/>
+    <source>
+        <include>
+            <directory>../src/</directory>
+        </include>
+    </source>
+</phpunit>

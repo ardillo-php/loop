@@ -1,0 +1,33 @@
+{
+    "name": "ardillo/loop",
+    "description": "ReactPHP Event Loop running on Ardillo",
+    "version": "0.1.0",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.1.0",
+        "ext-ardillo": "*",
+        "react/event-loop": "1.4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.2",
+        "phpstan/phpstan": "^1.9",
+        "react/promise": "^2.10",
+        "vimeo/psalm": "^5.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ardillo\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ardillo\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "phpstan": "php -d memory_limit=-1 ./vendor/bin/phpstan analyse -c ./etc/phpstan.neon -n -vvv --ansi --level=max src",
+        "psalm": "php -d memory_limit=-1 ./vendor/bin/psalm --config=./etc/psalm.xml --show-info=true",
+        "test": "php -d memory_limit=-1 ./vendor/bin/phpunit -c ./etc/phpunit.xml.dist",
+        "coverage": "php -d extension=pcov -d memory_limit=-1 ./vendor/bin/phpunit -c ./etc/phpunit.xml.dist --coverage-text --coverage-html=reports/coverage"
+    }
+}
