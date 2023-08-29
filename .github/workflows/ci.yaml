@@ -29,6 +29,8 @@ jobs:
           sudo apt-get install -y libgtk-3-dev xvfb
           git clone https://github.com/ardillo-php/ext.git
           cd ext && git submodule update --init && phpize && ./configure && make -j && sudo make install && cd ..
+      - name: Confirm Ardillo extension is installed/enabled
+        run: xvfb-run -a php --ri ardillo
       - name: Install Composer dependencies
         run: xvfb-run -a composer install
       - name: Run PHPStan
