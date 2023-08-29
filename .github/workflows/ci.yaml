@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  ci:
+    name: PHP ${{ matrix.php }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-22.04
+        php:
+          - 7.4
+          - 8.0
+          - 8.1
+          - 8.2
+    steps:
+      - uses: actions/checkout@v2
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          ini-values: extension=ardillo
+      - name: Prepare environment
+        run: |
+          python3 -m pip install --upgrade pip setuptools wheel
+          pip3 install meson ninja
+          sudo apt-get update -y
+          sudo apt-get install -y libgtk-3-dev xvfb
+          git clone https://github.com/ardillo-php/ext.git
+          cd ext && git submodule update --init && phpize && ./configure && make -j && sudo make install && cd ..
+      - name: Install Composer dependencies
+        run: xvfb-run composer install
+      - name: Run PHPStan
+        run: xvfb-run composer phpstan
+      - name: Run Psalm
+        run: xvfb-run composer psalm -- --output-format=github --shepherd
+      - name: Run Test Suite
+        uses: paambaati/codeclimate-action@v4.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
+        with:
+          coverageCommand: php -d memory_limit=-1 ./vendor/bin/phpunit -c ./etc/phpunit.xml.dist --coverage-clover clover.xml
+          coverageLocations: clover.xml:clover
+          debug: true
