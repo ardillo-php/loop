@@ -13,8 +13,6 @@ jobs:
         os:
           - ubuntu-22.04
         php:
-          - 7.4
-          - 8.0
           - 8.1
           - 8.2
     steps:
@@ -42,6 +40,6 @@ jobs:
         env:
           CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
         with:
-          coverageCommand: php -d memory_limit=-1 ./vendor/bin/phpunit -c ./etc/phpunit.xml.dist --coverage-clover clover.xml
+          coverageCommand: xvfb-run php -d memory_limit=-1 ./vendor/bin/phpunit -c ./etc/phpunit.xml.dist --coverage-clover clover.xml
           coverageLocations: clover.xml:clover
           debug: true
