@@ -10,13 +10,15 @@
 
 Ardillo Loop is an implementation of the ReactPHP Event Loop [interface](https://github.com/reactphp/event-loop).
 
-For documentation, please refer to the ReactPHP loop API reference: https://reactphp.org/event-loop/
+For documentation, please refer to the ReactPHP loop API reference: https://reactphp.org/event-loop/ as well as our examples: https://github.com/ardillo-php/examples
 
 _Note:_ Unlike the ReactPHP loop, Ardillo Loop cannot be restarted, i.e. once stopped, the implementing application is expected to prepare for termination. Given the nature of Ardillo applications (native desktop utilities), this should no be a limitation, however this can affect one's approach to unit testing.
 
 This library also offers a [`ReactApp` class](src/ReactApp.php) which extends the base [Ardillo `App` class](https://ardillo.dev/docs/0.1.x/classes/app/) in such fashion that the actual event loop management is abstracted away from the application logic. This allows for a more natural approach to writing Ardillo applications, where the application logic is not bound to the event loop implementation.
 
 ### Installation
+
+Before proceeding, make sure you have installed and enabled the [Ardillo extension](https://github.com/ardillo-php/ext).
 
 The recommended way to install Ardillo Loop is [via Composer](https://getcomposer.org/):
 
